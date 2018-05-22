@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "debug": "node --nolazy --inspect-brk=9229 syncData.js"
+    "debug": "node --nolazy --inspect-brk=9229 syncData.js",
+    "start": "node syncData.js"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +15,7 @@
     "request": "^2.87.0"
   },
   "devDependencies": {
+    "md5": "^2.2.1",
     "node-adodb": "^4.2.2"
   }
 }

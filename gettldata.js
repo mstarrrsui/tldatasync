@@ -1,4 +1,5 @@
 var fs = require('fs');
+var md5 = require('md5');
 var request = require('request');
 const ADODB = require('node-adodb');
 
@@ -84,7 +85,15 @@ const downloadAndQuery = () => {
     const filename = 'tldata.mdb' 
     return downloadaspromise('https://www.twinlakesswimtennis.org/Database/Clubs/TwinLakes_Data.mdb',`./${filename}`)
         .then(() => queryDB(filename))
+        .then( data => data.map( m => ({id: md5(m.MemberEmailAddress.toLowerCase()), ...m })))
+}
+
+const justQuery = () => {
+    const filename = 'tldata.mdb' 
+    return queryDB(filename)
+        .then( data => data.map( m => ({id: md5(m.MemberEmailAddress.toLowerCase()), ...m })))
 }
 
 
-module.exports.getTLData = downloadAndQuery;
+module.exports.getTLData = justQuery;
+module.exports.queryDB = queryDB;
