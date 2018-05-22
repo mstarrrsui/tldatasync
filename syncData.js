@@ -12,12 +12,8 @@ processData = data => {
 }
 
 
-downloadWithPromise= (url, dest) => {
-    return new Promise( (resolve,reject) => download(url,dest,resolve,reject) )
-}
 
 
-//download('https://www.twinlakesswimtennis.org/Database/Clubs/TwinLakes_Data.mdb',`./${downloadname}`, downloadSuccess, downloadError);
 downloadWithPromise('https://www.twinlakesswimtennis.org/Database/Clubs/TwinLakes_Data.mdb',`./${downloadname}`)
     .then(() => queryDB(downloadname))
     .then( processData )
