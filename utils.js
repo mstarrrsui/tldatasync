@@ -34,8 +34,6 @@ var downloadwithcb = function(url, dest, success, error) {
     });
 };
 
-var downloadaspromise = function(url, dest) {
-    return new Promise((success,error) => downloadwithcb(url, dest, success, error))
-}
 
-module.exports.download = downloadaspromise;
+
+module.exports.download = downloadwithcb;

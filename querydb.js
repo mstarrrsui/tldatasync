@@ -1,13 +1,13 @@
-const download = require('./utils.js').download;
 const ADODB = require('node-adodb');
 
 
-const downloadname = 'tldata3.mdb'
 
-queryDB = function() {
+queryDB = function(filename) {
+
+    console.log(`Querying the DB in file ${filename}`);
 
 
-    const connection = ADODB.open(`Provider=Microsoft.Jet.OLEDB.4.0;Data Source=${downloadname}`);
+    const connection = ADODB.open(`Provider=Microsoft.Jet.OLEDB.4.0;Data Source=${filename}`);
     const query = `SELECT Households.HouseholdFullName, Households.MemberEmailAddress, Households.MemberFirstName, 
     Households.MemberLastName, Households.CertificateNo, Households.StreetAddress, Households.State, Households.City, Households.Zipcode
     FROM Households
@@ -31,18 +31,10 @@ queryDB = function() {
 
     ORDER BY Households.HouseholdFullName;`
 
-   return (connection.query(query));
+    const p = connection.query(query).then(processData)
 }
-
-processData = data => {
-    data.map( m => console.log( m.MemberLastName ))
-}
-
-
-download('https://www.twinlakesswimtennis.org/Database/Clubs/TwinLakes_Data.mdb',`./${downloadname}`)
-    .then(queryDB)
-    .then(processData)
-    .catch(msg => console.error(msg))
+ 
+module.exports.queryDB = queryDB 
 
 
 
