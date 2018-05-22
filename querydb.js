@@ -31,7 +31,8 @@ queryDB = function(filename) {
 
     ORDER BY Households.HouseholdFullName;`
 
-    const p = connection.query(query).then(processData)
+    const p = connection.query(query)
+    return p;
 }
  
 module.exports.queryDB = queryDB 
