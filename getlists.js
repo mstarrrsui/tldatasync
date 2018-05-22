@@ -10,7 +10,6 @@ const instance = axios.create({
         password: '42c13481f23dab4d1576ad4e07c26aa3-us18'
     }
   });
-//a9fd814b6238acb4945e812acb8c22f3
 
 
 function getTwinlakes() {
@@ -36,12 +35,25 @@ function getMembers() {
             count: 800
         }
     })
-    .then(function (response) {
-        handleResults(response.data.members);
-    })
+    .then( response => response.data.members )
+    .then( data => 
+        data.map( m => console.log(`${m.merge_fields['LNAME']} ${m.id} ${m.email_address} ${m.merge_fields['MMERGE5']}`) ) 
+    )
     .catch(function (error) {
         console.log(error);
     })
+}
+
+function getMemberList() {
+    console.log('Calling MAILCHIMP API to get mailing list data....')
+    return (
+        instance.get('/lists/a978269293/members', {
+            params: {
+                count: 800
+            }
+        })
+        .then(result => result.data.members)
+    );
 }
 
 function updateMember() {
@@ -63,4 +75,4 @@ function updateMember() {
     })
 }
 
-getTwinlakes();
+module.exports.getMemberList = getMemberList;
