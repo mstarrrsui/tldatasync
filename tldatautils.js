@@ -68,3 +68,4 @@ const downloadAndQuery = (sqlquery) => {
 
 
 module.exports.downloadAndQuery = downloadAndQuery;
+module.exports.download = downloadaspromise;
